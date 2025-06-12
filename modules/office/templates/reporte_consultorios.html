@@ -1,0 +1,28 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Reporte de Consultorios</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Consultorio</th>
+                <th>Doctor</th>
+                <th>Especialidad</th>
+                <th>Fecha de Asignación</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consultorio in reporte_data %}
+            <tr>
+                <td>{{ consultorio.consultorio }}</td>
+                <td>{{ consultorio.doctor }}</td>
+                <td>{{ consultorio.especialidad }}</td>
+                <td>{{ consultorio.fecha_asignacion }}</td>
+                <td>{{ consultorio.estado }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

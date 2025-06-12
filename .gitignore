@@ -1,0 +1,18 @@
+# Entorno Virtual
+.venv/
+venv/
+env/
+
+# Archivos de Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Carpeta de instancia de Flask
+/instance/
+
+# Otros
+.env
+*.db
+*.sqlite3

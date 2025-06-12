@@ -1,0 +1,72 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="form-title text-center">Editar Triaje</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Seleccionar Paciente -->
+                <div class="form-group">
+                    <label for="Paciente">{{ form.PacienteID.label }}</label>
+                    {{ form.PacienteID(class="form-control") }}
+                </div>
+
+                <!-- Mostrar datos del paciente seleccionado -->
+                {% if paciente %}
+                    <div class="form-group">
+                        <label>Nombre Completo:</label>
+                        <input type="text" class="form-control" value="{{ paciente.Nombres }} {{ paciente.Apellidos }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Identificación:</label>
+                        <input type="text" class="form-control" value="{{ paciente.Identificacion }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de Nacimiento:</label>
+                        <input type="text" class="form-control" value="{{ paciente.FechaNacimiento }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Género:</label>
+                        <input type="text" class="form-control" value="{{ paciente.Genero }}" readonly>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6">
+                <!-- Signos vitales -->
+                <div class="form-group">
+                    <label for="FrecuenciaCardiaca">{{ form.frecuencia_cardiaca.label }}</label>
+                    {{ form.frecuencia_cardiaca(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="FrecuenciaRespiratoria">{{ form.frecuencia_respiratoria.label }}</label>
+                    {{ form.frecuencia_respiratoria(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="PresionArterialMin">{{ form.presion_min.label }}</label>
+                    {{ form.presion_min(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="PresionArterialMax">{{ form.presion_max.label }}</label>
+                    {{ form.presion_max(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="Temperatura">{{ form.temperatura.label }}</label>
+                    {{ form.temperatura(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="SaturacionOxigeno">{{ form.saturacion_oxigeno.label }}</label>
+                    {{ form.saturacion_oxigeno(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="Estado">{{ form.estado.label }}</label>
+                    {{ form.estado(class="form-control") }}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Actualizar</button>
+    </form>
+</div>
+{% endblock %}

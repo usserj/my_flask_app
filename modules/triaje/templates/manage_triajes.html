@@ -1,0 +1,43 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="form-title text-center">Gestión de Triajes</h1>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Paciente</th>
+                <th>Frecuencia Cardíaca</th>
+                <th>Frecuencia Respiratoria</th>
+                <th>Presión Arterial</th>
+                <th>Temperatura</th>
+                <th>Saturación de Oxígeno</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for triaje in triajes %}
+            <tr>
+                <td>{{ triaje.TriajeID }}</td>
+                <td>{{ triaje.paciente.Nombres }} {{ triaje.paciente.Apellidos }}</td>
+                <td>{{ triaje.FrecuenciaCardiaca }}</td>
+                <td>{{ triaje.FrecuenciaRespiratoria }}</td>
+                <td>{{ triaje.PresionArterialMin }} / {{ triaje.PresionArterialMax }}</td>
+                <td>{{ triaje.Temperatura }}</td>
+                <td>{{ triaje.SaturacionOxigeno }}</td>
+                <td>{{ triaje.Estado }}</td>
+                <td>
+                    <a href="{{ url_for('update_triaje', triaje_id=triaje.TriajeID) }}" class="btn btn-warning">Editar</a>
+                    <form action="{{ url_for('delete_triaje', triaje_id=triaje.TriajeID) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('create_triaje') }}" class="btn btn-primary">Añadir Triaje</a>
+</div>
+{% endblock %}

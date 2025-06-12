@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Administración Hospital</div>
+            <div class="list-group list-group-flush">
+                {% if current_user.is_authenticated %}
+                    {% for role in roles %}
+                        {% if role == 'Administrador' %}
+                            <a href="{{ url_for('manage_patients') }}" class="list-group-item list-group-item-action bg-light">Pacientes</a>
+                            <a href="{{ url_for('manage_doctors') }}" class="list-group-item list-group-item-action bg-light">Médicos</a>
+                            <a href="{{ url_for('manage_citas') }}" class="list-group-item list-group-item-action bg-light">Citas</a>
+                            <a href="{{ url_for('manage_consultorios') }}" class="list-group-item list-group-item-action bg-light">Consultorios</a>
+                            <a href="{{ url_for('manage_asignaciones') }}" class="list-group-item list-group-item-action bg-light">Asignaciones</a>
+                            <a href="{{ url_for('reporte_consultorios') }}" class="list-group-item list-group-item-action bg-light">Reporte de Consultorios</a>
+                            <a href="{{ url_for('usuario_listar') }}" class="list-group-item list-group-item-action bg-light">Gestión de Usuarios</a>
+                            <a href="{{ url_for('rol_gestionar') }}" class="list-group-item list-group-item-action bg-light">Gestión de Roles</a>
+                            <a href="{{ url_for('manage_emergencias') }}" class="list-group-item list-group-item-action bg-light">Gestión de Emergencias</a>
+                            <a href="{{ url_for('manage_triajes') }}" class="list-group-item list-group-item-action bg-light">Triaje Automatizado</a>
+                        {% elif role == 'Paciente' %}
+                            <a href="{{ url_for('perfil_paciente') }}" class="list-group-item list-group-item-action bg-light">Mi Perfil</a>
+                            <a href="{{ url_for('paciente_citas') }}" class="list-group-item list-group-item-action bg-light">Mis Citas</a>
+                            <a href="{{ url_for('paciente_crear_cita') }}" class="list-group-item list-group-item-action bg-light">Nueva Cita</a>
+                        {% elif role == 'Medico' %}
+                            <a href="{{ url_for('perfil_medico') }}" class="list-group-item list-group-item-action bg-light">Mi Perfil</a>
+                            <a href="{{ url_for('medico_agenda') }}" class="list-group-item list-group-item-action bg-light">Mi Agenda</a>
+                            <a href="{{ url_for('historial_medico', paciente_id=current_user.UsuarioID) }}" class="list-group-item list-group-item-action bg-light">Historial Médico</a>
+                            <a href="{{ url_for('manage_triajes') }}" class="list-group-item list-group-item-action bg-light">Triaje Automatizado</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                <a href="{{ url_for('logout') }}" class="list-group-item list-group-item-action bg-light">Cerrar sesión</a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="alert-container">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/flash_messages.js') }}"></script>
+</body>
+</html>

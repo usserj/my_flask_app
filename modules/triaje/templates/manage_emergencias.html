@@ -1,0 +1,47 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Gestión de Emergencias</h1>
+
+    <!-- Botón para registrar un nuevo triaje -->
+    <div class="text-right mt-4">
+        <a href="{{ url_for('create_triaje') }}" class="btn btn-primary">Registrar Nuevo Triaje</a>
+    </div>
+
+    <!-- Lista de triajes registrados -->
+    <div class="mt-5">
+        <h2>Triajes Registrados</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Paciente</th>
+                    <th>Frecuencia Cardiaca</th>
+                    <th>Frecuencia Respiratoria</th>
+                    <th>Presión Arterial</th>
+                    <th>Temperatura Corporal</th>
+                    <th>Saturación de Oxígeno</th>
+                    <th>Estado</th>
+                    <th>Fecha de Registro</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for triaje in triajes %}
+                <tr>
+                    <td>{{ triaje.TriajeID }}</td>
+                    <td>{{ triaje.paciente.Nombres }} {{ triaje.paciente.Apellidos }}</td>
+                    <td>{{ triaje.FrecuenciaCardiaca }}</td>
+                    <td>{{ triaje.FrecuenciaRespiratoria }}</td>
+                    <td>{{ triaje.PresionArterialMin }}/{{ triaje.PresionArterialMax }}</td>
+                    <td>{{ triaje.Temperatura }}</td>
+                    <td>{{ triaje.SaturacionOxigeno }}</td>
+                    <td>{{ triaje.Estado }}</td>
+                    <td>{{ triaje.FechaRegistro }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
